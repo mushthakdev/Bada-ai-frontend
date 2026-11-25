@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { ErrorState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api, errorMessage } from "@/lib/api";
-import { API_BASE } from "@/lib/constants";
+import { getApiBase } from "@/lib/constants";
 import { humanize } from "@/lib/utils";
 
 interface Health {
@@ -62,7 +62,7 @@ export default function SettingsPage() {
             ))}
           </dl>
         )}
-        <p className="mt-4 break-all text-xs text-navy-400">API endpoint: {API_BASE}</p>
+        <p className="mt-4 break-all text-xs text-navy-400">API endpoint: {getApiBase()}</p>
       </Card>
     </div>
   );

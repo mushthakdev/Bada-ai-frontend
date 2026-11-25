@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Suspense } from "react";
 import { Providers } from "@/components/providers";
 import { APP_NAME } from "@/lib/constants";
@@ -40,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${dmSans.variable} ${instrumentSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-navy-900">
+        {/* Cloud Run entrypoint writes /bada-runtime.js with the live API URL. */}
+        <Script src="/bada-runtime.js" strategy="beforeInteractive" />
         <Providers>
           <Suspense fallback={null}>{children}</Suspense>
         </Providers>

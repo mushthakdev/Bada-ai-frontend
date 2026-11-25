@@ -1,4 +1,4 @@
-import { API_BASE } from "@/lib/constants";
+import { getApiBase } from "@/lib/constants";
 import { useAuthStore } from "@/store/auth-store";
 import type { ApiResponse, TokenPair } from "@/types";
 
@@ -34,7 +34,7 @@ interface RequestOptions {
 }
 
 function buildUrl(path: string, query?: Query) {
-  const url = new URL(`${API_BASE}${path.startsWith("/") ? path : `/${path}`}`);
+  const url = new URL(`${getApiBase()}${path.startsWith("/") ? path : `/${path}`}`);
   if (query) {
     for (const [key, value] of Object.entries(query)) {
       if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));

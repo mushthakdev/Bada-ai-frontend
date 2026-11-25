@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { ChannelBrandIcon } from "@/components/channels/channel-brand-icon";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -77,9 +78,12 @@ export default function IntegrationsPage() {
             <Card key={ch.code}>
               <CardHeader>
                 <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <CardTitle className="text-base">{ch.name}</CardTitle>
-                    <CardDescription>{ch.description}</CardDescription>
+                  <div className="flex min-w-0 items-start gap-3">
+                    <ChannelBrandIcon logoKey={ch.logo_key} code={ch.code} />
+                    <div className="min-w-0">
+                      <CardTitle className="text-base">{ch.name}</CardTitle>
+                      <CardDescription>{ch.description}</CardDescription>
+                    </div>
                   </div>
                   <Badge variant={connected ? "success" : "neutral"}>{humanize(status)}</Badge>
                 </div>

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
+import { ChannelBrandIcon } from "@/components/channels/channel-brand-icon";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,9 +91,12 @@ export default function MarketplacePage() {
               <Card key={ch.code}>
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <CardTitle className="text-base">{ch.name}</CardTitle>
-                      <CardDescription>{ch.description}</CardDescription>
+                    <div className="flex min-w-0 items-start gap-3">
+                      <ChannelBrandIcon logoKey={ch.logo_key} code={ch.code} />
+                      <div className="min-w-0">
+                        <CardTitle className="text-base">{ch.name}</CardTitle>
+                        <CardDescription>{ch.description}</CardDescription>
+                      </div>
                     </div>
                     <Badge variant="neutral">{humanize(ch.integration_mode)}</Badge>
                   </div>

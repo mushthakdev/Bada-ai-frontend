@@ -4,9 +4,11 @@ import {
   BarChart3,
   CircleDollarSign,
   Clapperboard,
+  FileText,
   GraduationCap,
   Hammer,
   Home,
+  ListChecks,
   MapPin,
   Megaphone,
   MonitorPlay,
@@ -22,12 +24,36 @@ import {
   Target,
   Utensils,
   Gem,
+  Wand2,
   type LucideIcon,
 } from "lucide-react";
+import { ChannelBrandIcon } from "@/components/channels/channel-brand-icon";
 import { Button } from "@/components/ui/button";
 import { Section, SectionHeading } from "@/components/marketing/section";
 import { PricingGrid } from "@/components/marketing/pricing-section";
 import { cn } from "@/lib/utils";
+
+const AI_OUTPUT_PLATFORMS: { code: string; name: string }[] = [
+  { code: "meta", name: "Meta" },
+  { code: "youtube", name: "YouTube" },
+  { code: "ctv", name: "Connected TV" },
+  { code: "jiohotstar", name: "JioHotstar" },
+  { code: "sonyliv", name: "Sony LIV" },
+  { code: "zee5", name: "ZEE5" },
+  { code: "amazon_prime", name: "Prime Video" },
+  { code: "mx_player", name: "MX Player" },
+  { code: "netflix", name: "Netflix" },
+  { code: "aha", name: "aha" },
+  { code: "sunnxt", name: "Sun NXT" },
+  { code: "local_screens", name: "Local screens" },
+];
+
+const AI_PIPELINE: { label: string; detail: string; icon: LucideIcon }[] = [
+  { label: "Brief", detail: "Plain-language goals & offer", icon: FileText },
+  { label: "Plan", detail: "Channels, formats & script", icon: ListChecks },
+  { label: "Generate", detail: "Multi-format creatives", icon: Wand2 },
+  { label: "Preview", detail: "Review, edit, approve", icon: Clapperboard },
+];
 
 /* ------------------------------ Problem ------------------------------ */
 const PROBLEMS = [
@@ -191,16 +217,15 @@ export function ChannelsSection() {
 /* ------------------------------ AI ad creation ------------------------------ */
 export function AiCreationSection() {
   return (
-    <Section tone="navy" className="bg-grid-navy">
+    <Section tone="surface">
       <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
         <div>
           <SectionHeading
-            tone="dark"
             eyebrow="AI ad creation"
             title="Your brief in. Multi-format creatives out."
-            description="Bada AI turns a few plain-language answers into creatives for CTV, YouTube, Reels, stories, banners and local screens. You stay in control — review, edit and approve before anything is submitted."
+            description="Bada AI turns a few plain-language answers into creatives for CTV, YouTube, Meta, JioHotstar, Sony LIV, ZEE5, Prime Video, MX Player and local screens. You stay in control — review, edit and approve before anything is submitted."
           />
-          <ul className="mt-8 space-y-3 text-navy-300">
+          <ul className="mt-8 space-y-3 text-navy-600">
             {[
               "Write a brief in your own words and language",
               "Review the AI-proposed plan and script",
@@ -208,32 +233,61 @@ export function AiCreationSection() {
               "Clearly marked when a creative comes from a mock provider",
             ].map((t) => (
               <li key={t} className="flex gap-3">
-                <ShieldCheck className="mt-0.5 size-5 shrink-0 text-brand-400" aria-hidden />
+                <ShieldCheck className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
                 {t}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Illustrative studio pipeline */}
-        <div aria-hidden className="space-y-3">
-          {[
-            { label: "Brief", width: "w-3/4" },
-            { label: "Plan", width: "w-full" },
-            { label: "Generate", width: "w-2/3" },
-            { label: "Preview", width: "w-5/6" },
-          ].map((row, i) => (
-            <div key={row.label} className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.04] p-4">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-sm font-semibold text-white">
-                {i + 1}
-              </span>
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-white">{row.label}</p>
-                <div className={cn("mt-2 h-2 rounded-full bg-white/15", row.width)} />
-              </div>
+        {/* Studio pipeline + platform outputs — light card for clear contrast */}
+        <div className="rounded-2xl border border-line-strong bg-white p-5 shadow-lift sm:p-6">
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-navy-900">Studio pipeline</p>
+              <p className="text-xs text-navy-500">Brief → plan → generate → preview</p>
             </div>
-          ))}
-          <p className="pt-1 text-xs text-navy-400">Illustrative workflow</p>
+            <span className="rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-[11px] font-semibold text-brand-700">
+              Illustrative
+            </span>
+          </div>
+
+          <ol className="space-y-2.5">
+            {AI_PIPELINE.map((row, i) => (
+              <li
+                key={row.label}
+                className="flex items-center gap-3 rounded-xl border border-line bg-surface px-3.5 py-3"
+              >
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-sm font-semibold text-white">
+                  {i + 1}
+                </span>
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+                  <row.icon className="size-4" aria-hidden />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold text-navy-900">{row.label}</p>
+                  <p className="truncate text-xs text-navy-500">{row.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-5 border-t border-line pt-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-navy-500">
+              Creatives sized for
+            </p>
+            <ul className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
+              {AI_OUTPUT_PLATFORMS.map((p) => (
+                <li
+                  key={p.code}
+                  className="flex flex-col items-center gap-1.5 rounded-xl border border-line bg-surface px-2 py-2.5 text-center"
+                >
+                  <ChannelBrandIcon code={p.code} size={36} className="rounded-lg" />
+                  <span className="w-full truncate text-[11px] font-semibold text-navy-700">{p.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </Section>

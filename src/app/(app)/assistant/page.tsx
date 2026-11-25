@@ -33,8 +33,8 @@ interface Message {
 }
 
 const STARTERS = [
-  "New advertising near Ernakulam",
-  "Create a new campaign for store visits",
+  "I own a salon. Where should I advertise for the best ROI?",
+  "I own a salon in Kakkanad. I have ₹25,000 for a 30-day campaign targeting working professionals within 5 km. Suggest digital billboards.",
   "List my campaigns",
   "How is my spend looking this month?",
 ];
@@ -155,7 +155,7 @@ export default function AssistantPage() {
               Hi {firstName}!
             </h1>
             <p className="mt-2 max-w-md text-center text-sm text-navy-500">
-              Tell me an area like Ernakulam — then pick pincodes, objective, language and budget with select options.
+              Describe your business and goals — I’ll ask only what’s missing, then search real inventory and build a plan.
             </p>
 
             <AgentComposer

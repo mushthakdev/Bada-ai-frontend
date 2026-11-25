@@ -1,4 +1,28 @@
+declare global {
+  interface Window {
+    __BADA_API_URL?: string;
+  }
+}
+
+/** Resolve API origin: browser runtime config (Cloud Run) → env → localhost. */
+export function getApiUrl(): string {
+  if (typeof window !== "undefined" && window.__BADA_API_URL) {
+    return window.__BADA_API_URL.replace(/\/+$/, "");
+  }
+  const fromEnv =
+    process.env.NEXT_PUBLIC_API_URL ||
+    process.env.API_URL ||
+    "http://localhost:8000";
+  return fromEnv.replace(/\/+$/, "");
+}
+
+export function getApiBase(): string {
+  return `${getApiUrl()}/api/v1`;
+}
+
+/** @deprecated Prefer getApiUrl() — kept for display/fallback after hydration. */
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/+$/, "");
+/** @deprecated Prefer getApiBase() */
 export const API_BASE = `${API_URL}/api/v1`;
 
 /** Product name shown in UI copy and document titles */
